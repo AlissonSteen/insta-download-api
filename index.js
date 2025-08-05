@@ -2,6 +2,7 @@ import fastify from 'fastify';
 import { fetchPostJson } from './src/index.js';
 
 const app = fastify();
+
 const PORT = process.env.PORT || 3000;
 
 app.get('/', async (request, reply) => {
@@ -14,15 +15,15 @@ app.get('/download/', async (request, reply) => {
   console.log("--> GET /download", url, new Date().toLocaleString());
 
   if (!url) {
-    return reply.send({ error: 'forneça uma URL do instagram' });
+    return reply.status(400).send({ error: 'forneça uma URL do instagram' });
   }
 
   try {
     const resultado = await fetchPostJson(url);
     reply.send({ ...resultado });
   } catch (error) {
-    console.error("Erro ao processar:", error);
-    reply.status(500).send({ error: 'Erro interno ao processar o link.' });
+    console.error("Erro ao processar a URL:", error);
+    reply.status(500).send({ error: 'Erro ao processar a URL' });
   }
 });
 
