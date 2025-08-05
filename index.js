@@ -23,7 +23,7 @@ app.get('/download/', async (request, reply) => {
 const start = async () => {
     try {
         app.listen({ host: '0.0.0.0', port: PORT });
-        console.log('Servidor rodando em http://localhost:3000');
+        console.log('Servidor rodando em http://localhost:${PORT}');
     } catch (err) {
         console.error(err);
         process.exit(1);
